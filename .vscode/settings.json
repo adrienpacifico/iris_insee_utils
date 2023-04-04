@@ -1,0 +1,7 @@
+{
+    "python.testing.pytestArgs": [
+        "iris_insee_utils"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
