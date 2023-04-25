@@ -1,3 +1,5 @@
 geopandas
 pyarrow
-pytest
+pytest-xdist
+tqdm
+py7zr

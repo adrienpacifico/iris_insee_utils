@@ -1,1 +1,14 @@
 data/*
+!data/__init__.py
+.pytest_cache
+.conda
+.mypy_cache
+.venv
+.vscode
+data_2
+
+*.feather
+
+
+*.pyc
+*.egg-info
