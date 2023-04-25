@@ -3,3 +3,4 @@ pyarrow
 pytest-xdist
 tqdm
 py7zr
+requests
