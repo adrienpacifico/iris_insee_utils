@@ -7,7 +7,7 @@ on:
   push:
     branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 permissions:
   contents: read
@@ -43,3 +43,5 @@ jobs:
         make launch_test
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
+
+      

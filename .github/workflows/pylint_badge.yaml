@@ -1,13 +1,36 @@
-steps:
-- uses: actions/checkout@v3
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-- run: |
-  pip install anybadge
-  pip install pylint
+name: Python application
 
-- run: anybadge -l pylint -v 2.22 -f pylint.svg 2=red 4=orange 8=yellow 10=green
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
-- uses: actions/upload-artifact@v3
-  with:
-    name: my-artifact
-    path: pylint.svg
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Install dependencies
+      run: |
+          pip install anybadge
+          pip install pylint 
+    - name: Create Badge
+      run: anybadge -l pylint -v 2.22 -f pylint.svg 2=red 4=orange 8=yellow 10=green
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact
+        path: pylint.svg
