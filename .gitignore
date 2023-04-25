@@ -3,12 +3,17 @@ data/*
 .pytest_cache
 .conda
 .mypy_cache
+__pycache__
 .venv
 .vscode
 data_2
 
 *.feather
 
-
 *.pyc
 *.egg-info
+
+### Code coverage
+
+.coverage
+coverage.xml
