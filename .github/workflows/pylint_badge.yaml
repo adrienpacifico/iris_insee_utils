@@ -1,0 +1,13 @@
+steps:
+- uses: actions/checkout@v3
+
+run: |
+  pip install anybadge
+  pip install pylint
+
+- run: anybadge -l pylint -v 2.22 -f pylint.svg 2=red 4=orange 8=yellow 10=green
+
+- uses: actions/upload-artifact@v3
+  with:
+    name: my-artifact
+    path: pylint.svg
