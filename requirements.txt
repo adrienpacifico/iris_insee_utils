@@ -4,3 +4,4 @@ pytest-xdist
 tqdm
 py7zr
 requests
+pytest-cov
