@@ -1,7 +1,7 @@
 steps:
 - uses: actions/checkout@v3
 
-run: |
+- run: |
   pip install anybadge
   pip install pylint
 
