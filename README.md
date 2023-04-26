@@ -1,5 +1,4 @@
-[![codecov](https://codecov.io/gh/adrienpacifico/iris_insee_utils/branch/main/graph/badge.svg?token=ZZItjohsp9)](https://codecov.io/gh/adrienpacifico/iris_insee_utils)
-
+[![codecov](https://codecov.io/gh/adrienpacifico/iris_insee_utils/branch/master/graph/badge.svg?token=ZZItjohsp9)](https://codecov.io/gh/adrienpacifico/iris_insee_utils)
 The goal of this pandas repository is to provide an easy solution to determine to which iris gps point correspond to.
 This could be extended to an transformation from adress to iris.
 
