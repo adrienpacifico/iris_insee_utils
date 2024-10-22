@@ -1,5 +1,8 @@
+# Ignore all files in the data directory except __init__.py
 data/*
 !data/__init__.py
+
+# Ignore various cache and environment directories
 .pytest_cache
 .conda
 .mypy_cache
@@ -10,14 +13,19 @@ __pycache__
 data_2
 .history/* # VsCode history extension 
 
+# Ignore .history folder and all its contents (VsCode history extension)
+.history
+
+# Ignore feather files
 *.feather
 
+# Ignore Python bytecode and egg-info directories
 *.pyc
 *.egg-info
 
-
-### Code coverage
-
+# Ignore code coverage files
 .coverage
 coverage.xml
+
+# Ignore untracked notebooks
 notebooks/untracked/*
