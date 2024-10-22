@@ -6,14 +6,18 @@ data/*
 __pycache__
 .venv
 .vscode
+.DS_Store
 data_2
+.history/* # VsCode history extension 
 
 *.feather
 
 *.pyc
 *.egg-info
 
+
 ### Code coverage
 
 .coverage
 coverage.xml
+notebooks/untracked/*
