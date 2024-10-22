@@ -5,9 +5,9 @@ name: Python application
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "*" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "*" ]
 
 permissions:
   contents: read
@@ -19,18 +19,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-        with:
-          lfs: true 
+      with: 
+        lfs: true 
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
         python-version: "3.10" 
-        lfs: true 
-    - name: Install Git LFS
-      run: |
-        sudo apt-get update
-        sudo apt-get install git-lfs
-        git lfs install    
     - name: Install dependencies
       run: |
         sudo apt-get install git-lfs
