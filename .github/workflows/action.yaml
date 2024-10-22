@@ -44,6 +44,7 @@ jobs:
     #     make download_and_initialize_data
     - name: Test with pytest
       run: |
+        cat data/transformed/iris_2018.parquet
         make launch_test
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
