@@ -6,7 +6,6 @@ by using IGN geographical dat to join the two datasets.
 import pandas as pd
 import geopandas as gpd
 
-import iris_insee_utils
 from iris_insee_utils.gps_to_iris import df_gps_to_iris
 
 def merge_gps_dataset_to_iris_dataset(
