@@ -6,3 +6,6 @@ py7zr
 requests
 pytest-cov
 pylint
+matplotlib 
+loguru
+folium
