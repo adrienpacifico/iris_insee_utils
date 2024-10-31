@@ -8,14 +8,18 @@ import geopandas as gpd
 
 from iris_insee_utils.gps_to_iris import df_gps_to_iris
 
+
 def merge_gps_dataset_to_iris_dataset(
-                df_oi: pd.DataFrame,
-                df_enrich: pd.DataFrame,
-                iris_year: int = 2018,
-                iris_full_info: bool = False,
-                df_oi_longlat_colname:tuple[str, str]=('longitude','latitude'), # TODO: transform to kwargs.
-                df_enrich_iriscol_colname:str=None,
-                ) -> gpd.GeoDataFrame:
+    df_oi: pd.DataFrame,
+    df_enrich: pd.DataFrame,
+    iris_year: int = 2018,
+    iris_full_info: bool = False,
+    df_oi_longlat_colname: tuple[str, str] = (
+        "longitude",
+        "latitude",
+    ),  # TODO: transform to kwargs.
+    df_enrich_iriscol_colname: str = None,
+) -> gpd.GeoDataFrame:
     """
     Merge the dataset of interest that contains GPS information for each row,
     with another dataset that contains data at the IRIS level.
@@ -59,14 +63,20 @@ def merge_gps_dataset_to_iris_dataset(
     0  POINT (5.36222 43.41523)        37408     13071  ...  130710101  Cd6-Plan de Campagne        A
     """
 
+    df_oi_iris = df_gps_to_iris(
+        df_oi,
+        df_oi_longlat_colname[0],
+        df_oi_longlat_colname[1],
+        iris_year=iris_year,
+        iris_full_info=iris_full_info,
+    )
 
-    df_oi_iris = df_gps_to_iris(df_oi, df_oi_longlat_colname[0], 
-                                df_oi_longlat_colname[1],  iris_year=iris_year, 
-                                iris_full_info=iris_full_info)
-    
-    df_enrich =df_enrich.astype({df_enrich_iriscol_colname:'str'})
+    df_enrich = df_enrich.astype({df_enrich_iriscol_colname: "str"})
     print(df_oi_iris)
 
-    return pd.merge(df_oi_iris.astype({'CODE_IRIS':'str'}), 
-                    df_enrich,
-                    left_on='CODE_IRIS',right_on=df_enrich_iriscol_colname)
+    return pd.merge(
+        df_oi_iris.astype({"CODE_IRIS": "str"}),
+        df_enrich,
+        left_on="CODE_IRIS",
+        right_on=df_enrich_iriscol_colname,
+    )

@@ -1,4 +1,4 @@
-"""This module is test that gps coordinates are linking to the correct IRIS."""
+"""This module is for plotting IRIS data."""
 
 import os
 

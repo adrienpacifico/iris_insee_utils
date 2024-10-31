@@ -1,13 +1,14 @@
 """This module provide functions that are related to giving iris information from geographical data."""
+
 import pandas as pd
 import geopandas as gpd
 
 import iris_insee_utils
 
 
-def gps_to_iris(long: float, lat: float, 
-                iris_year: int = 2018,
-                iris_full_info: bool = False) -> gpd.GeoDataFrame:
+def gps_to_iris(
+    long: float, lat: float, iris_year: int = 2018, iris_full_info: bool = False
+) -> gpd.GeoDataFrame:
     """
     Get the longitude and latitude of gps point(s), and returns the CODE IRIS.
     More information about TYPE_IRIS can be found here: https://www.insee.fr/fr/information/2438155
@@ -31,13 +32,13 @@ def gps_to_iris(long: float, lat: float,
     Examples
     --------
     >>> gps_to_iris(5.362223663076667, 43.41522600589665, 2018)
-    Out[11]: 
+    Out[11]:
                        geometry  index_right INSEE_COM  ...  CODE_IRIS              NOM_IRIS TYP_IRIS
     0  POINT (5.36222 43.41523)        37408     13071  ...  130710101  Cd6-Plan de Campagne        A
     """
     df_ign_map = gpd.read_parquet(
-            iris_insee_utils.__path__[0] + f"/../data/transformed/iris_{iris_year}.parquet"
-        )
+        iris_insee_utils.__path__[0] + f"/../data/transformed/iris_{iris_year}.parquet"
+    )
     df_ign_map = df_ign_map.to_crs(epsg=4326)
     gdf = gpd.GeoDataFrame(geometry=gpd.points_from_xy([long], [lat]))
 
@@ -46,12 +47,16 @@ def gps_to_iris(long: float, lat: float,
     result_df = gpd.sjoin(gdf.head(1), df_ign_map, predicate="within")
     if iris_full_info:
         return result_df
-    return result_df[['CODE_IRIS',
-       'NOM_IRIS', 'TYP_IRIS']]
+    return result_df[["CODE_IRIS", "NOM_IRIS", "TYP_IRIS"]]
 
-def df_gps_to_iris(df: pd.DataFrame, long_col: str, lat_col: str, 
-                iris_year: int = 2018,
-                iris_full_info: bool = False) -> gpd.GeoDataFrame:
+
+def df_gps_to_iris(
+    df: pd.DataFrame,
+    long_col: str,
+    lat_col: str,
+    iris_year: int = 2018,
+    iris_full_info: bool = False,
+) -> gpd.GeoDataFrame:
     """
     Get the longitude and latitude from a DataFrame, and returns the CODE IRIS.
     More information about TYPE_IRIS can be found here: https://www.insee.fr/fr/information/2438155
@@ -78,20 +83,25 @@ def df_gps_to_iris(df: pd.DataFrame, long_col: str, lat_col: str,
     --------
     >>> df = pd.DataFrame({'Lieu':['Mairie de Marseille','Site-Mémorial du Camp des Milles'],'longitude': [5.369905252590892, 5.382786610618382,], 'latitude': [43.296630332564405,43.5034655315141,]})
     >>> df_gps_to_iris(df, 'longitude', 'latitude', 2018)
-    Out[11]: 
+    Out[11]:
                        geometry  index_right INSEE_COM  ...  CODE_IRIS              NOM_IRIS TYP_IRIS
     0  POINT (5.36222 43.41523)        37408     13071  ...  130710101  Cd6-Plan de Campagne        A
     """
     # Check if the columns are not already in the dataframe
-    conflicting_cols = [col for col in ['RIS', 'NOM_IRIS', 'CODE_IRIS'] if col in df.columns]
-    assert not conflicting_cols, f"{', '.join(conflicting_cols)} are already in the inputed dataframe columns, please rename them or drop them to avoid conflicts"
-
+    conflicting_cols = [
+        col for col in ["RIS", "NOM_IRIS", "CODE_IRIS"] if col in df.columns
+    ]
+    assert (
+        not conflicting_cols
+    ), f"{', '.join(conflicting_cols)} are already in the inputed dataframe columns, please rename them or drop them to avoid conflicts"
 
     df_ign_map = gpd.read_parquet(
-            iris_insee_utils.__path__[0] + f"/../data/transformed/iris_{iris_year}.parquet"
-        )
+        iris_insee_utils.__path__[0] + f"/../data/transformed/iris_{iris_year}.parquet"
+    )
     df_ign_map = df_ign_map.to_crs(epsg=4326)
-    df=df.astype({long_col: str, lat_col: str}) # TODO: Check if categorical or string dtype would not be faster or better.
+    df = df.astype(
+        {long_col: str, lat_col: str}
+    )  # TODO: Check if categorical or string dtype would not be faster or better.
     gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df[long_col], df[lat_col]))
 
     gdf.crs = "EPSG:4326"
@@ -99,4 +109,6 @@ def df_gps_to_iris(df: pd.DataFrame, long_col: str, lat_col: str,
     result_df = gpd.sjoin(gdf, df_ign_map, predicate="within")
     if iris_full_info:
         return result_df
-    return result_df.drop(columns=['geometry', 'index_right', 'INSEE_COM', 'NOM_COM','TYP_IRIS'])
+    return result_df.drop(
+        columns=["geometry", "index_right", "INSEE_COM", "NOM_COM", "TYP_IRIS"]
+    )
