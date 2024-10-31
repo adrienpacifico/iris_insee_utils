@@ -2,7 +2,7 @@
 
 import pandas as pd
 import geopandas as gpd
-
+from iris_insee_utils.get_iris_contours_data import read_or_download_iris_contour_data
 import iris_insee_utils
 
 
@@ -36,9 +36,7 @@ def gps_to_iris(
                        geometry  index_right INSEE_COM  ...  CODE_IRIS              NOM_IRIS TYP_IRIS
     0  POINT (5.36222 43.41523)        37408     13071  ...  130710101  Cd6-Plan de Campagne        A
     """
-    df_ign_map = gpd.read_parquet(
-        iris_insee_utils.__path__[0] + f"/../data/transformed/iris_{iris_year}.parquet"
-    )
+    df_ign_map = read_or_download_iris_contour_data(iris_year)
     df_ign_map = df_ign_map.to_crs(epsg=4326)
     gdf = gpd.GeoDataFrame(geometry=gpd.points_from_xy([long], [lat]))
 

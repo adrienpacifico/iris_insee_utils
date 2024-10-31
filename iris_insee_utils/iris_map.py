@@ -2,6 +2,7 @@
 
 import os
 
+from iris_insee_utils.get_iris_contours_data import read_or_download_iris_contour_data
 import iris_insee_utils
 from iris_insee_utils.gps_to_iris import gps_to_iris
 import pandas as pd
@@ -59,12 +60,7 @@ def plot_folium_map(
                     - The map is returned as a Folium map object.
     """
 
-    file_path = os.path.join(
-        os.path.dirname(iris_insee_utils.__file__),
-        f"../data/transformed/iris_{iris_year}.parquet",
-    )
-
-    df_map = gpd.read_parquet(file_path).to_crs(
+    df_map = read_or_download_iris_contour_data(iris_year).to_crs(
         epsg=4326
     )  # TODO: add this to the cleaning function
     df_map["NOM_COM"] = (
