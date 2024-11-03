@@ -24,7 +24,7 @@ def read_or_download_iris_contour_data(iris_year: int) -> gpd.GeoDataFrame:
                 iris_insee_utils.__path__[0] + f"/../data/transformed/iris_{iris_year}.parquet"
             )
     except FileNotFoundError:
-        logger.info("The file iris_{iris_year}.parquet does not exist. Will try to download it and cache it.")
+        logger.info(f"The file iris_{iris_year}.parquet does not exist. Will try to download it and cache it.")
         url = f"https://github.com/adrienpacifico/iris_insee_utils_data/raw/refs/heads/main/data/primary/iris_{iris_year}.parquet"
         response = requests.get(url)
         response.raise_for_status()
@@ -39,6 +39,6 @@ def read_or_download_iris_contour_data(iris_year: int) -> gpd.GeoDataFrame:
         df_ign_map = gpd.read_parquet(file_path)
     return df_ign_map
 
-if __name__ == "__main__":
+if __name__ == "__main__":   # pragma: no cover
     for year in range(2018, 2024):
         read_or_download_iris_contour_data(iris_year=year)
