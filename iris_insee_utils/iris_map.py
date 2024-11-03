@@ -3,8 +3,7 @@
 import os
 
 from iris_insee_utils.get_iris_contours_data import read_or_download_iris_contour_data
-import iris_insee_utils
-from iris_insee_utils.gps_to_iris import gps_to_iris
+from iris_insee_utils.gps_coordinates_to_iris import gps_to_iris
 import pandas as pd
 from loguru import logger
 import geopandas as gpd
