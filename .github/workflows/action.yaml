@@ -46,3 +46,5 @@ jobs:
         make launch_test
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
+      with:
+        fail_ci_if_error: false
