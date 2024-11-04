@@ -6,6 +6,7 @@ from iris_insee_utils.get_iris_contours_data import read_or_download_iris_contou
 import iris_insee_utils
 
 
+
 def gps_to_iris_number(long: float, lat: float, iris_year: int = 2018):
     """
     Get the longitude and latitude of gps point(s), and returns the CODE IRIS.

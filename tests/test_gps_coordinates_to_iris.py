@@ -1,7 +1,9 @@
 """This module tests that GPS coordinates are linking to the correct IRIS."""
 
 import pandas as pd
+
 from iris_insee_utils.gps_coordinates_to_iris import gps_to_iris, df_gps_to_iris, gps_to_iris_number
+
 
 
 def test_gps_to_iris():
@@ -10,6 +12,7 @@ def test_gps_to_iris():
     """
     result_df = gps_to_iris(5.36413, 43.23871)
     assert result_df.CODE_IRIS.values[0] == "132080302"
+
 
 def test_gps_to_iris_number():
     """
