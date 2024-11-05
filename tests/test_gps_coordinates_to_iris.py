@@ -2,7 +2,7 @@
 
 import pandas as pd
 
-from iris_insee_utils.gps_coordinates_to_iris import gps_to_iris, df_gps_to_iris, gps_to_iris_number
+from iris_insee_utils.gps_coordinates_to_iris import gps_to_iris, df_gps_to_iris, gps_to_code_iris
 
 
 
@@ -14,11 +14,11 @@ def test_gps_to_iris():
     assert result_df.CODE_IRIS.values[0] == "132080302"
 
 
-def test_gps_to_iris_number():
+def test_gps_to_code_iris():
     """
     Test that a single GPS point outputs the correct IRIS number.
     """
-    result_str = gps_to_iris_number(5.362223663076667, 43.41522600589665, 2018)
+    result_str = gps_to_code_iris(5.362223663076667, 43.41522600589665, 2018)
     assert result_str == "130710101"
 
 def test_df_gps_to_iris():
