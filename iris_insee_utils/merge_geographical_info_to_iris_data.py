@@ -3,8 +3,8 @@ with data at the iris level (e.g. poverty rate in an IRIS),
 by using IGN geographical dat to join the two datasets.
 """
 
-import pandas as pd
 import geopandas as gpd
+import pandas as pd
 
 from iris_insee_utils.gps_coordinates_to_iris import df_gps_to_iris
 
@@ -20,8 +20,7 @@ def merge_gps_dataset_to_iris_dataset(
     ),  # TODO: transform to kwargs.
     df_enrich_iriscol_colname: str = None,
 ) -> gpd.GeoDataFrame:
-    """
-    Merge the dataset of interest that contains GPS information for each row,
+    """Merge the dataset of interest that contains GPS information for each row,
     with another dataset that contains data at the IRIS level.
 
     Suggested usage: rename the columns of the datasets to 'longitude' and 'latitude' before using this function.
@@ -61,8 +60,8 @@ def merge_gps_dataset_to_iris_dataset(
     Out[11]: 
                         geometry  index_right INSEE_COM  ...  CODE_IRIS              NOM_IRIS TYP_IRIS
     0  POINT (5.36222 43.41523)        37408     13071  ...  130710101  Cd6-Plan de Campagne        A
-    """
 
+    """
     df_oi_iris = df_gps_to_iris(
         df_oi,
         df_oi_longlat_colname[0],

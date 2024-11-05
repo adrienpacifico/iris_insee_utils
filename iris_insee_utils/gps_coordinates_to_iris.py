@@ -1,14 +1,14 @@
 """This module provide functions that are related to giving iris information from geographical data."""
 
-import pandas as pd
 import geopandas as gpd
-from iris_insee_utils.get_iris_contours_data import read_or_download_iris_contour_data
+import pandas as pd
+
 import iris_insee_utils
+from iris_insee_utils.get_iris_contours_data import read_or_download_iris_contour_data
 
 
 def gps_to_code_iris(long: float, lat: float, iris_year: int = 2018):
-    """
-    Get the longitude and latitude of gps point(s), and returns the CODE IRIS.
+    """Get the longitude and latitude of gps point(s), and returns the CODE IRIS.
 
     Parameters
     ----------
@@ -29,15 +29,15 @@ def gps_to_code_iris(long: float, lat: float, iris_year: int = 2018):
     >>> gps_to_code_iris(5.36, 43.41, 2018)
     Out[11]:
     '130710101'
+
     """
     return gps_to_iris(long, lat, iris_year).CODE_IRIS.values[0]
-    
+
 
 def gps_to_iris(
-    long: float, lat: float, iris_year: int = 2018, iris_full_info: bool = False
+    long: float, lat: float, iris_year: int = 2018, iris_full_info: bool = False,
 ) -> gpd.GeoDataFrame:
-    """
-    Get the longitude and latitude of gps point(s), and returns the CODE IRIS.
+    """Get the longitude and latitude of gps point(s), and returns the CODE IRIS.
     More information about TYPE_IRIS can be found here: https://www.insee.fr/fr/information/2438155
 
     Parameters
@@ -62,6 +62,7 @@ def gps_to_iris(
     Out[11]:
            CODE_IRIS           NOM_IRIS    TYP_IRIS
         0  130710101  Cd6-Plan de Campagne        A
+
     """
     df_ign_map = read_or_download_iris_contour_data(iris_year)
     df_ign_map = df_ign_map.to_crs(epsg=4326)
@@ -82,8 +83,7 @@ def df_gps_to_iris(
     iris_year: int = 2018,
     iris_full_info: bool = False,
 ) -> gpd.GeoDataFrame:
-    """
-    Get the longitude and latitude from a DataFrame, and returns the CODE IRIS.
+    """Get the longitude and latitude from a DataFrame, and returns the CODE IRIS.
     More information about TYPE_IRIS can be found here: https://www.insee.fr/fr/information/2438155
 
     Parameters
@@ -111,6 +111,7 @@ def df_gps_to_iris(
     Out[11]:
                        geometry  index_right INSEE_COM  ...  CODE_IRIS              NOM_IRIS TYP_IRIS
     0  POINT (5.36222 43.41523)        37408     13071  ...  130710101  Cd6-Plan de Campagne        A
+
     """
     # Check if the columns are not already in the dataframe
     conflicting_cols = [
@@ -121,11 +122,11 @@ def df_gps_to_iris(
     ), f"{', '.join(conflicting_cols)} are already in the inputed dataframe columns, please rename them or drop them to avoid conflicts"
 
     df_ign_map = gpd.read_parquet(
-        iris_insee_utils.__path__[0] + f"/../data/transformed/iris_{iris_year}.parquet"
+        iris_insee_utils.__path__[0] + f"/../data/transformed/iris_{iris_year}.parquet",
     )
     df_ign_map = df_ign_map.to_crs(epsg=4326)
     df = df.astype(
-        {long_col: str, lat_col: str}
+        {long_col: str, lat_col: str},
     )  # TODO: Check if categorical or string dtype would not be faster or better.
     gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df[long_col], df[lat_col]))
 
@@ -135,5 +136,5 @@ def df_gps_to_iris(
     if iris_full_info:
         return result_df
     return result_df.drop(
-        columns=["geometry", "index_right", "INSEE_COM", "NOM_COM", "TYP_IRIS"]
+        columns=["geometry", "index_right", "INSEE_COM", "NOM_COM", "TYP_IRIS"],
     )

@@ -1,6 +1,6 @@
 [project]
 name = "iris-insee-utils"
-version = "0.1.0"
+version = "0.1.1"
 description = "Get code IRIS from GPS points or addresses"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -16,6 +16,7 @@ dependencies = [
     "pytest-cov>=6.0.0",
     "pytest-xdist>=3.6.1",
     "requests>=2.32.3",
+    "ruff>=0.7.2",
     "tqdm>=4.66.6",
 ]
 
@@ -28,6 +29,11 @@ classifiers = [
 ]
 
 
+[tool.ruff.lint]
+select = ["ALL"]
+
+[tool.ruff]
+line-length = 120
 
 [tool.setuptools]
 packages = { find = { include = ["iris_insee_utils*"], exclude = ["img*", "data*", "notebooks*"] } }

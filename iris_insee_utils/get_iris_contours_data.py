@@ -1,13 +1,15 @@
-"Will get the contour data for the given year by either reading it from cache in data/transformed or by downloading it from iris_insee_utils_data and recording it in data/transformed."
-import geopandas as gpd
-import iris_insee_utils
-import requests
-from loguru import logger
+"""Will get the contour data for the given year by either reading it from cache in data/transformed or by downloading it from iris_insee_utils_data and recording it in data/transformed."""
 from pathlib import Path
 
+import geopandas as gpd
+import requests
+from loguru import logger
+
+import iris_insee_utils
+
+
 def read_or_download_iris_contour_data(iris_year: int) -> gpd.GeoDataFrame:
-    """
-    Get the contour data for the given year by either reading it from cache in data/transformed or by downloading it from iris_insee_utils_data and recording it in data/transformed.
+    """Get the contour data for the given year by either reading it from cache in data/transformed or by downloading it from iris_insee_utils_data and recording it in data/transformed.
 
     Parameters
     ----------
@@ -18,10 +20,11 @@ def read_or_download_iris_contour_data(iris_year: int) -> gpd.GeoDataFrame:
     -------
     geopandas.GeoDataFrame
         A GeoDataFrame containing the IRIS contour data for the specified year.
+
     """
     try:
             df_ign_map = gpd.read_parquet(
-                iris_insee_utils.__path__[0] + f"/../data/transformed/iris_{iris_year}.parquet"
+                iris_insee_utils.__path__[0] + f"/../data/transformed/iris_{iris_year}.parquet",
             )
     except FileNotFoundError:
         logger.info(f"The file iris_{iris_year}.parquet does not exist. Will try to download it and cache it.")

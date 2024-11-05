@@ -2,16 +2,13 @@
 
 import os
 
-from iris_insee_utils.get_iris_contours_data import read_or_download_iris_contour_data
-from iris_insee_utils.gps_coordinates_to_iris import gps_to_iris
+import folium
+import geopandas as gpd
+import numpy as np
 import pandas as pd
 from loguru import logger
-import geopandas as gpd
-import folium
-from tqdm import tqdm
-import numpy as np
 
-from loguru import logger
+from iris_insee_utils.get_iris_contours_data import read_or_download_iris_contour_data
 
 
 def plot_folium_map(
@@ -23,10 +20,10 @@ def plot_folium_map(
     df_enrich_select_cols=None,
     save_map_path=None,
 ):
-    """
-    Plot a folium map of IRIS (Ilots Regroupés pour l'Information Statistique) for a given commune or department number.
-                    Parameters
-                    ----------
+    """Plot a folium map of IRIS (Ilots Regroupés pour l'Information Statistique) for a given commune or department number.
+
+    Parameters
+    ----------
                     iris_year : int
                         The year of the IRIS data to be used.
                     commune_name : str, optional
@@ -41,26 +38,29 @@ def plot_folium_map(
                         A list of columns in `df_enrich` to be included in the map, by default None.
                     save_map_path : str, optional
                         Absolute path where the map will be saved to an HTML file, by default None.
-                    Returns
-                    -------
+
+    Returns
+    -------
                     folium.Map
                         A Folium map object with the plotted IRIS data and optional points of interest.
-                    Raises
-                    ------
+
+    Raises
+    ------
                     NotImplementedError
                         If `save_map` is True, as this functionality has not been implemented yet.
-                    Notes
-                    -----
+
+    Notes
+    -----
                     - The function reads a parquet file containing IRIS data for the specified year.
                     - The IRIS data is filtered by the specified commune name.
                     - If `df_enrich` is provided, it merges the IRIS data with the enrichment data.
                     - If `df_oi` is provided, it adds markers for points of interest to the map.
                     - The map is centered on the centroid of the filtered IRIS geometries.
                     - The map is returned as a Folium map object.
-    """
 
+    """
     df_map = read_or_download_iris_contour_data(iris_year).to_crs(
-        epsg=4326
+        epsg=4326,
     )  # TODO: add this to the cleaning function
     df_map["NOM_COM"] = (
         df_map.NOM_COM.str.strip()
@@ -122,8 +122,8 @@ def plot_folium_map(
 
             m.add_child(
                 folium.Marker(
-                    location=[row["lat"], row["lon"]], tooltip=tooltip  # icon=icon,
-                )
+                    location=[row["lat"], row["lon"]], tooltip=tooltip,  # icon=icon,
+                ),
             )
     if save_map_path is not None:
         script_dir = os.path.dirname(os.path.abspath(__file__))
