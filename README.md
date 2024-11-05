@@ -1,4 +1,4 @@
-[![codecov](https://codecov.io/gh/adrienpacifico/iris_insee_utils/branch/master/graph/badge.svg?token=ZZItjohsp9)](https://codecov.io/gh/adrienpacifico/iris_insee_utils)  
+[![codecov](https://codecov.io/gh/adrienpacifico/iris_insee_utils/branch/master/graph/badge.svg?token=ZZItjohsp9)](https://codecov.io/gh/adrienpacifico/iris_insee_utils)  [![Maintainability](https://api.codeclimate.com/v1/badges/be89aa8dc49b4f18183f/maintainability)](https://codeclimate.com/github/adrienpacifico/iris_insee_utils/maintainability)  
 Note: This library is currently in beta and may contain bugs. Please use it with caution.
 
 This repository provides an easy solution to determine which IRIS zone (Ilots Regroupés pour l'Information Statistique) corresponds to a set of GPS coordinates. It also includes utilities to plot maps with IRIS contours, enrich IRIS-specific data, and manage external data containing GPS points.
