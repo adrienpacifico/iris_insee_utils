@@ -27,5 +27,10 @@ classifiers = [
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
 ]
 
+
+
+[tool.setuptools]
+packages = { find = { include = ["iris_insee_utils*"], exclude = ["img*", "data*", "notebooks*"] } }
+
 [project.urls]
 "Homepage" = "https://github.com/adrienpacifico/iris_insee_utils"
