@@ -18,7 +18,7 @@ def merge_gps_dataset_to_iris_dataset(
         "longitude",
         "latitude",
     ),  # TODO: transform to kwargs.
-    df_enrich_iriscol_colname: str = None,
+    df_enrich_iriscol_colname: str | None = None,
 ) -> gpd.GeoDataFrame:
     """Merge the dataset of interest that contains GPS information for each row,
     with another dataset that contains data at the IRIS level.
@@ -71,7 +71,6 @@ def merge_gps_dataset_to_iris_dataset(
     )
 
     df_enrich = df_enrich.astype({df_enrich_iriscol_colname: "str"})
-    print(df_oi_iris)
 
     return pd.merge(
         df_oi_iris.astype({"CODE_IRIS": "str"}),

@@ -77,7 +77,7 @@ def plot_folium_map(
         df_enrich = df_enrich.astype({df_enrich_iriscol_colname: "str"})
         df_map = pd.merge(
             df_map.astype({"CODE_IRIS": "str"}),
-            df_enrich.loc[:, df_enrich_select_cols + [df_enrich_iriscol_colname]],
+            df_enrich.loc[:, [*df_enrich_select_cols, df_enrich_iriscol_colname]],
             left_on="CODE_IRIS",
             right_on=df_enrich_iriscol_colname,
         )
@@ -112,7 +112,6 @@ def plot_folium_map(
 
     if df_oi is not None:
         for _, row in df_oi.iterrows():
-            location = [row["lat"], row["lon"]]
             tooltip = ""
             for column_name, value in row.items():
                 if column_name not in ["lat", "lon"]:
@@ -125,7 +124,6 @@ def plot_folium_map(
                 ),
             )
     if save_map_path is not None:
-        script_dir = os.path.dirname(os.path.abspath(__file__))
         logger.info(f"Saving map to {save_map_path}")
         m.save(save_map_path)
 

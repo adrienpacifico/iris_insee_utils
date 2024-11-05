@@ -41,7 +41,7 @@ def gps_to_iris(
     iris_full_info: bool = False,
 ) -> gpd.GeoDataFrame:
     """Get the longitude and latitude of gps point(s), and returns the CODE IRIS.
-    More information about TYPE_IRIS can be found here: https://www.insee.fr/fr/information/2438155
+    More information about TYPE_IRIS can be found here: https://www.insee.fr/fr/information/2438155.
 
     Parameters
     ----------
@@ -87,7 +87,7 @@ def df_gps_to_iris(
     iris_full_info: bool = False,
 ) -> gpd.GeoDataFrame:
     """Get the longitude and latitude from a DataFrame, and returns the CODE IRIS.
-    More information about TYPE_IRIS can be found here: https://www.insee.fr/fr/information/2438155
+    More information about TYPE_IRIS can be found here: https://www.insee.fr/fr/information/2438155.
 
     Parameters
     ----------

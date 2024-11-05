@@ -1,53 +1,53 @@
-import folium
-import unittest
-from iris_insee_utils.iris_map import plot_folium_map
-import pandas as pd
 import os
+import unittest
+
+import folium
+import pandas as pd
+
+from iris_insee_utils.iris_map import plot_folium_map
 
 
 class TestFoliumMap(unittest.TestCase):
 
-    def test_plot_folium_map(self):
+    def test_plot_folium_map(self) -> None:
         # Call the function to generate the map
         m = plot_folium_map(commune_name="Nice", iris_year=2018)
 
         # Check if the returned object is a Folium Map
-        self.assertIsInstance(m, folium.Map)
+        assert isinstance(m, folium.Map)
 
         # Generate HTML content
         html_content = m.get_root().render()
 
-        print(html_content[:2000])
         # Check if the HTML content contains expected elements
-        self.assertIn('<div class="folium-map"', html_content)
-        self.assertIn("Nice", html_content)  # Check if the commune name is in the HTML
+        assert '<div class="folium-map"' in html_content
+        assert "Nice" in html_content  # Check if the commune name is in the HTML
 
-    def test_plot_folium_map_with_df_oi(self):
+    def test_plot_folium_map_with_df_oi(self) -> None:
         df_oi = pd.DataFrame(
             {
                 "Lieu": ["Mairie de Marseille", "Site-Mémorial du Camp des Milles"],
                 "lon": [5.369905252590892, 5.382786610618382],
                 "lat": [43.296630332564405, 43.5034655315141],
-            }
+            },
         )
 
         m = plot_folium_map(iris_year=2018, commune_name="Marseille", df_oi=df_oi)
-        self.assertIsInstance(m, folium.Map)
+        assert isinstance(m, folium.Map)
 
-    def test_plot_folium_map_df_enrich(self):
+    def test_plot_folium_map_df_enrich(self) -> None:
         df_oi = pd.DataFrame(
             {
                 "Lieu": ["Mairie de Marseille", "Site-Mémorial du Camp des Milles"],
                 "lon": [5.369905252590892, 5.382786610618382],
                 "lat": [43.296630332564405, 43.5034655315141],
-            }
+            },
         )
 
         df_enrich = pd.DataFrame(
-            {"CODE_IRIS": ["132020301", "130010905"], "Some_IRIS_Data": [100, 200]}
+            {"CODE_IRIS": ["132020301", "130010905"], "Some_IRIS_Data": [100, 200]},
         )
 
-        save_map_path = "test_map.html"
 
         m = plot_folium_map(
             iris_year=2018,
@@ -61,10 +61,10 @@ class TestFoliumMap(unittest.TestCase):
         assert isinstance(m, folium.Map)
 
 
-def test_plot_folium_map():
+def test_plot_folium_map() -> None:
     save_map_path = "test_map.html"
     m = plot_folium_map(
-        commune_name="Nice", iris_year=2018, save_map_path=save_map_path
+        commune_name="Nice", iris_year=2018, save_map_path=save_map_path,
     )
 
     assert isinstance(m, folium.Map)
