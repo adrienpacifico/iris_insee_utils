@@ -57,7 +57,7 @@ def merge_gps_dataset_to_iris_dataset(
     ...     'Some_IRIS_Data': [100, 200]
     ... })
     >>> merge_gps_dataset_to_iris_dataset(df_oi, df_enrich, 2018, False, ('longitude', 'latitude'), 'CODE_IRIS')
-    Out[11]: 
+    Out[11]:
                         geometry  index_right INSEE_COM  ...  CODE_IRIS              NOM_IRIS TYP_IRIS
     0  POINT (5.36222 43.41523)        37408     13071  ...  130710101  Cd6-Plan de Campagne        A
 

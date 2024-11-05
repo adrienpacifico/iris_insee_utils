@@ -35,7 +35,10 @@ def gps_to_code_iris(long: float, lat: float, iris_year: int = 2018):
 
 
 def gps_to_iris(
-    long: float, lat: float, iris_year: int = 2018, iris_full_info: bool = False,
+    long: float,
+    lat: float,
+    iris_year: int = 2018,
+    iris_full_info: bool = False,
 ) -> gpd.GeoDataFrame:
     """Get the longitude and latitude of gps point(s), and returns the CODE IRIS.
     More information about TYPE_IRIS can be found here: https://www.insee.fr/fr/information/2438155
@@ -114,12 +117,8 @@ def df_gps_to_iris(
 
     """
     # Check if the columns are not already in the dataframe
-    conflicting_cols = [
-        col for col in ["RIS", "NOM_IRIS", "CODE_IRIS"] if col in df.columns
-    ]
-    assert (
-        not conflicting_cols
-    ), f"{', '.join(conflicting_cols)} are already in the inputed dataframe columns, please rename them or drop them to avoid conflicts"
+    conflicting_cols = [col for col in ["RIS", "NOM_IRIS", "CODE_IRIS"] if col in df.columns]
+    assert not conflicting_cols, f"{', '.join(conflicting_cols)} are already in the inputed dataframe columns, please rename them or drop them to avoid conflicts"
 
     df_ign_map = gpd.read_parquet(
         iris_insee_utils.__path__[0] + f"/../data/transformed/iris_{iris_year}.parquet",

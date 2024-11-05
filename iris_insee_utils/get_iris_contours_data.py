@@ -1,4 +1,5 @@
 """Will get the contour data for the given year by either reading it from cache in data/transformed or by downloading it from iris_insee_utils_data and recording it in data/transformed."""
+
 from pathlib import Path
 
 import geopandas as gpd
@@ -23,9 +24,9 @@ def read_or_download_iris_contour_data(iris_year: int) -> gpd.GeoDataFrame:
 
     """
     try:
-            df_ign_map = gpd.read_parquet(
-                iris_insee_utils.__path__[0] + f"/../data/transformed/iris_{iris_year}.parquet",
-            )
+        df_ign_map = gpd.read_parquet(
+            iris_insee_utils.__path__[0] + f"/../data/transformed/iris_{iris_year}.parquet",
+        )
     except FileNotFoundError:
         logger.info(f"The file iris_{iris_year}.parquet does not exist. Will try to download it and cache it.")
         url = f"https://github.com/adrienpacifico/iris_insee_utils_data/raw/refs/heads/main/data/primary/iris_{iris_year}.parquet"
@@ -42,6 +43,7 @@ def read_or_download_iris_contour_data(iris_year: int) -> gpd.GeoDataFrame:
         df_ign_map = gpd.read_parquet(file_path)
     return df_ign_map
 
-if __name__ == "__main__":   # pragma: no cover
+
+if __name__ == "__main__":  # pragma: no cover
     for year in range(2018, 2024):
         read_or_download_iris_contour_data(iris_year=year)

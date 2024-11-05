@@ -86,7 +86,6 @@ def plot_folium_map(
         enrich_iris_info = ""
         if df_enrich is not None:
             for column_name, value in row.items():
-
                 if column_name in df_enrich_select_cols:
                     enrich_iris_info += f"{column_name}: {np.round(value,2)}<br>"
 
@@ -112,7 +111,6 @@ def plot_folium_map(
         geo_j.add_to(m)
 
     if df_oi is not None:
-
         for _, row in df_oi.iterrows():
             location = [row["lat"], row["lon"]]
             tooltip = ""
@@ -122,7 +120,8 @@ def plot_folium_map(
 
             m.add_child(
                 folium.Marker(
-                    location=[row["lat"], row["lon"]], tooltip=tooltip,  # icon=icon,
+                    location=[row["lat"], row["lon"]],
+                    tooltip=tooltip,  # icon=icon,
                 ),
             )
     if save_map_path is not None:
